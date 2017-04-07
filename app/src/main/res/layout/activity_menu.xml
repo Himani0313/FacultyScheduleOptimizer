@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_menu"
@@ -10,4 +9,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.asu.facultyscheduleoptimizer.MenuActivity">
 
+    <Button
+        android:text="Show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/show"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/logout"
+        android:onClick="onShow"
+        android:layout_alignLeft="@+id/logout" />
+
+    <Button
+        android:text="LogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logout"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/show"
+        android:layout_alignStart="@+id/add"
+        android:onClick="onLogout"
+        android:layout_alignLeft="@+id/add" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@+id/show"
+        android:layout_centerHorizontal="true"
+        android:onClick="onAdd" />
 </RelativeLayout>
