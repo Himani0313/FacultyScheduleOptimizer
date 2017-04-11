@@ -65,7 +65,6 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -76,7 +75,9 @@ public class EventDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, EventListActivity.class));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                navigateUpTo(new Intent(this, EventListActivity.class));
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
