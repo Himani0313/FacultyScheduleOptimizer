@@ -231,6 +231,7 @@ public class ShowActivity extends AppCompatActivity implements EasyPermissions.P
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
         mCredential.setSelectedAccountName(name);
+        Log.d("nameeeeeeee- Show",name);
         getResultsFromApi();
 
 
