@@ -148,7 +148,7 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
         mStartTime = (TextView)findViewById(R.id.StartTime);
         mEndDate = (TextView)findViewById(R.id.EndDate);
         mEndTime = (TextView)findViewById(R.id.EndTime);
-
+        
         mStartDate.addTextChangedListener(watcher);
         mStartTime.addTextChangedListener(watcher);
         mEndDate.addTextChangedListener(watcher);
