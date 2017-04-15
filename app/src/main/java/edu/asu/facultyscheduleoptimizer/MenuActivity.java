@@ -71,6 +71,10 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onCalc (View view) {
+        Intent intent = new Intent(this,CalculateActivity.class);
+        startActivity(intent);
+    }
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {

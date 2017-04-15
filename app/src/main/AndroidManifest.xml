@@ -25,9 +25,10 @@
             android:name=".ShowActivity"
             android:label="@string/title_activity_show"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventListActivity"
+        <activity
+            android:name=".EventListActivity"
             android:label="@string/title_event_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EventDetailActivity"
             android:label="@string/title_event_detail"
@@ -37,6 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.asu.facultyscheduleoptimizer.EventListActivity" />
         </activity>
+        <activity android:name=".CalculateActivity"></activity>
     </application>
 
 </manifest>
