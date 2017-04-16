@@ -498,6 +498,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
                 }
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), start));
+
             }
             return eventStrings;
         }

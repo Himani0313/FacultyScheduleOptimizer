@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logopng"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="75dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:id="@+id/imageView4"
