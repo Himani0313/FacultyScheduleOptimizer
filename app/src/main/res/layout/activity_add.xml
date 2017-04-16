@@ -126,9 +126,9 @@
             android:text="Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/AddButton"
-            android:layout_below="@+id/PlaceText"
+            android:layout_below="@+id/radiogroup"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:onClick="AddEvent"
@@ -137,26 +137,29 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/radioButton"
+            android:checkedButton="@+id/research"
             android:orientation="horizontal"
-            android:layout_alignTop="@+id/PlaceText"
+            android:layout_below="@+id/PlaceText"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="50dp">
+            android:id="@+id/radiogroup">
         <RadioButton
             android:text="Research"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton"
-             />
+            android:layout_marginTop="11dp"
+            android:id="@+id/research"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:text="Teaching"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/radioButton2" />
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="11dp"
+            android:id="@+id/teaching"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:text="Service"
@@ -165,7 +168,9 @@
             android:layout_marginLeft="35dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/radioButton3" />
+            android:layout_marginTop="11dp"
+            android:id="@+id/service"
+            android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
 
     </RelativeLayout>

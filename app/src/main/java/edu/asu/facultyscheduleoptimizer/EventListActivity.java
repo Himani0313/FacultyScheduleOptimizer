@@ -489,6 +489,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
 
             items = allEventsItems;
             for (Event event : items) {
+                Log.d("aaaaaaaaaaaaaaaaaaaaa", event.toString());
                 DateTime start = event.getStart().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use

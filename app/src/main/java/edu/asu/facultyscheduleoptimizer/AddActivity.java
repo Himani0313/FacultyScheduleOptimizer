@@ -30,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -44,6 +45,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.Data;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
@@ -55,13 +57,16 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -73,10 +78,11 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
     Calendar endCalendar = Calendar.getInstance();
     Switch mSwitch;
     TextView mStartDate, mEndDate, mStartTime, mEndTime;
+    //RadioButton mResearch, mTeaching, mServicebutton ;
     boolean switchState, mAdded;
-    int Hour,Minute;
+    int Hour,Minute, statusradio;
     Thread mThread;
-    String mException;
+    String mException, radiostate;
     private com.google.api.services.calendar.Calendar mService;
 
     @Override
@@ -84,6 +90,9 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+//        mResearch = (RadioButton) findViewById(R.id.research);
+//        mTeaching = (RadioButton) findViewById(R.id.teaching);
+//        mServicebutton = (RadioButton) findViewById(R.id.service);
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
@@ -148,7 +157,7 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
         mStartTime = (TextView)findViewById(R.id.StartTime);
         mEndDate = (TextView)findViewById(R.id.EndDate);
         mEndTime = (TextView)findViewById(R.id.EndTime);
-        
+
         mStartDate.addTextChangedListener(watcher);
         mStartTime.addTextChangedListener(watcher);
         mEndDate.addTextChangedListener(watcher);
@@ -208,7 +217,31 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.research:
+                if (checked)
+                    // Pirates are the best
+                    statusradio = 1;
+                    radiostate = "Research";
+                    break;
+            case R.id.teaching:
+                if (checked)
+                    // Ninjas rule
+                    statusradio = 2;
+                    radiostate = "Teaching";
+                    break;
+            case R.id.service:
+                if (checked)
+                    statusradio = 3;
+                    radiostate = "Service";
+                    break;
+        }
+    }
 
     public void SelectStartTime(View view) {
         TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
@@ -255,10 +288,15 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
                 String location = locationView.getText().toString();
                 String title = titleView.getText().toString();
                 String description = descriptionView.getText().toString();
+                Event.ExtendedProperties Ep = new Event.ExtendedProperties();
+                Map<String, String> map1 = new HashMap<String, String>();
+                map1.put("TYPE",radiostate);
+                Ep.setShared(map1);
                 Event event = new Event()
                         .setSummary(title)
                         .setLocation(location)
-                        .setDescription(description);
+                        .setDescription(description)
+                        .setExtendedProperties(Ep);
                 DateTime startDateTime = new DateTime(startCalendar.getTime());
                 DateTime endDateTime = new DateTime(endCalendar.getTime());
                 EventDateTime startdate = new EventDateTime();

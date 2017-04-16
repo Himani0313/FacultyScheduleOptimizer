@@ -68,12 +68,13 @@ public class EventDetailFragment extends Fragment {
             TextView startdate = (TextView) rootView.findViewById(R.id.StartDateDetails);
             TextView enddate = (TextView) rootView.findViewById(R.id.EndDateDetails);
             TextView place = (TextView) rootView.findViewById(R.id.PlaceDetails);
-
+            TextView type = (TextView) rootView.findViewById(R.id.TYPE);
             title.setText(mItem.getTitle());
             description.setText(mItem.getDescription());
             startdate.setText(mItem.getStartDate());
             enddate.setText(mItem.getEndDate());
             place.setText(mItem.getPlace());
+
         }
 
         return rootView;

@@ -74,5 +74,16 @@
             android:layout_marginLeft="10dp"
             android:text="place"/>
     </TableRow>
-
+    <TableRow
+        android:minHeight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <TextView
+            android:layout_width="100dp"
+            android:text="TYPE"/>
+        <TextView
+            android:id="@+id/TYPE"
+            android:layout_marginLeft="10dp"
+            android:text="Type"/>
+    </TableRow>
 </TableLayout>
