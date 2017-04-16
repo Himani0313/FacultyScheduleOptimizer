@@ -74,7 +74,8 @@ public class EventDetailFragment extends Fragment {
             startdate.setText(mItem.getStartDate());
             enddate.setText(mItem.getEndDate());
             place.setText(mItem.getPlace());
-
+            if(mItem.Type != null)
+                type.setText(mItem.Type);
         }
 
         return rootView;

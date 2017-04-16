@@ -67,7 +67,10 @@ public class DummyContent {
             end = new Date(event.getEnd().getDate().getValue());
         }
         String endDate = dateFormat.format(end);
-        return new DummyItem(String.valueOf(position), event.getSummary() + " " + startDate, makeDetails(position,event), event.getSummary(), event.getDescription(), startDate, endDate, event.getLocation(), start, end, event.getId());
+        Event.ExtendedProperties ep = event.getExtendedProperties();
+        Map<String, String> map1 = new HashMap<String, String>();
+        map1 = ep.getShared();
+        return new DummyItem(String.valueOf(position), event.getSummary() + " " + startDate, makeDetails(position,event), event.getSummary(), event.getDescription(), startDate, endDate, event.getLocation(), start, end, event.getId(), map1.get("TYPE"));
     }
 
     private static String makeDetails(int position, Event event) {
@@ -115,7 +118,7 @@ public class DummyContent {
         public final String id;
         public final String content;
         public final String details;
-
+        public final String Type;
         public String getTitle() {
             return title;
         }
@@ -154,8 +157,9 @@ public class DummyContent {
         private Date end;
         private String eventid;
 
-        public DummyItem(String id, String content, String details, String title, String description, String startDate, String endDate, String place, Date start, Date end, String eventid) {
+        public DummyItem(String id, String content, String details, String title, String description, String startDate, String endDate, String place, Date start, Date end, String eventid, String type) {
             this.id = id;
+            this.Type = type;
             this.content = content;
             this.details = details;
             this.title = title;
