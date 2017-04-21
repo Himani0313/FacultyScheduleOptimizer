@@ -142,7 +142,8 @@
             android:layout_below="@+id/PlaceText"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radiogroup">
+            android:id="@+id/radiogroup"
+            android:weightSum="1">
         <RadioButton
             android:text="Research"
             android:layout_width="wrap_content"
@@ -154,23 +155,34 @@
         <RadioButton
             android:text="Teaching"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="11dp"
             android:id="@+id/teaching"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:text="Service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="5dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp"
             android:id="@+id/service"
             android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:text="DEI Service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="11dp"
+                android:id="@+id/deiservice"
+                android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
 
     </RelativeLayout>

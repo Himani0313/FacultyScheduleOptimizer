@@ -50,11 +50,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import edu.asu.facultyscheduleoptimizer.dummy.DummyContent;
+
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -469,7 +472,13 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
                     end = curEvent.getEnd().getDate();
                 }
                 Date enddate = new Date(end.getValue());
-
+//                Event.ExtendedProperties ep = curEvent.getExtendedProperties();
+//                Map<String, String> map1 = new HashMap<String, String>();
+//                map1 = ep.getShared();
+//                if(map1.get("TYPE") == null){
+//                    map1.put("TYPE", "Not Specified");
+//                    ep.setShared(map1);
+//                }
                 if (enddate.before(currentTime))
                 {
                     if (allday)

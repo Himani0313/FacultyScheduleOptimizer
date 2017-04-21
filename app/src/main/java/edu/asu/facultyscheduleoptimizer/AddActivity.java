@@ -240,6 +240,11 @@ public class AddActivity extends AppCompatActivity implements EasyPermissions.Pe
                     statusradio = 3;
                     radiostate = "Service";
                     break;
+            case R.id.deiservice:
+                if (checked)
+                    statusradio = 4;
+                radiostate = "DEI Service";
+                break;
         }
     }
 

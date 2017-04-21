@@ -118,7 +118,7 @@ public class DummyContent {
         public final String id;
         public final String content;
         public final String details;
-        public final String Type;
+        public String Type;
         public String getTitle() {
             return title;
         }
@@ -159,7 +159,11 @@ public class DummyContent {
 
         public DummyItem(String id, String content, String details, String title, String description, String startDate, String endDate, String place, Date start, Date end, String eventid, String type) {
             this.id = id;
-            this.Type = type;
+            if (type == null){
+                this.Type = "not specified";
+            }
+            else
+                this.Type = type;
             this.content = content;
             this.details = details;
             this.title = title;
