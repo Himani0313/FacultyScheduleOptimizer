@@ -4,6 +4,8 @@ package edu.asu.facultyscheduleoptimizer.dummy;
  * Created by hjshah2 on 4/7/2017.
  */
 
+import android.util.Log;
+
 import com.google.api.services.calendar.model.Event;
 
 import java.text.SimpleDateFormat;
@@ -67,10 +69,14 @@ public class DummyContent {
             end = new Date(event.getEnd().getDate().getValue());
         }
         String endDate = dateFormat.format(end);
-        Event.ExtendedProperties ep = event.getExtendedProperties();
-        Map<String, String> map1 = new HashMap<String, String>();
-        map1 = ep.getShared();
-        return new DummyItem(String.valueOf(position), event.getSummary() + " " + startDate, makeDetails(position,event), event.getSummary(), event.getDescription(), startDate, endDate, event.getLocation(), start, end, event.getId(), map1.get("TYPE"));
+        if(event.getExtendedProperties().getShared().get("TYPE") == null){
+            Map<String, String> map1 = new HashMap<String, String>();
+            map1.put("TYPE","not specified");
+            Event.ExtendedProperties ep = new Event.ExtendedProperties();
+            event.setExtendedProperties(ep.setShared(map1));
+        }
+        Log.d("duuuuuuuuuuuummmyyy",event.getExtendedProperties().getShared().get("TYPE"));
+        return new DummyItem(String.valueOf(position), event.getSummary() + " " + startDate, makeDetails(position,event), event.getSummary(), event.getDescription(), startDate, endDate, event.getLocation(), start, end, event.getId(), event.getExtendedProperties().getShared().get("TYPE"));
     }
 
     private static String makeDetails(int position, Event event) {

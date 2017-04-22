@@ -82,14 +82,14 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
-
+    Map<String, String> map1 = new HashMap<String, String>();
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
     public static final String EventID ="";
     public static final String NAME ="";
     private static String name="";
-
+    public Event event1;
     private ViewPager mViewPager;
     private static TextView mTextView;
     private static List<Event> items;
@@ -401,6 +401,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
         } else {
             new MakeRequestTask(mCredential).execute();
         }
+        Log.d("aaaaaaaaaaaaa","ingetresusts fromapi");
     }
 
 
@@ -449,10 +450,16 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
          */
         private List<String> getDataFromApi() throws IOException, ParseException {
             List<String> eventStrings = new ArrayList<String>();
+            List<String>trial= new ArrayList<String>();
+
             java.util.Calendar cal = GregorianCalendar.getInstance(TimeZone.getDefault());
             Date date = cal.getTime();
             DateTime dateTime = new DateTime(date);
-
+            map1.put("TYPE","Not specified");
+            Event.ExtendedProperties ep1 = new Event.ExtendedProperties();
+            ep1.setShared(map1);
+            trial.add("TYPE");
+            Log.d("aaaaaaaaaaaaaaaa","from get dat from API");
             Events allevents = mService.events().list("primary")
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
@@ -479,6 +486,12 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
 //                    map1.put("TYPE", "Not Specified");
 //                    ep.setShared(map1);
 //                }
+
+//                if(curEvent.getExtendedProperties().getShared().get("TYPE") == null){
+//                    map1.put("TYPE","not specified");
+//                    Event.ExtendedProperties ep = new Event.ExtendedProperties();
+//                    curEvent.setExtendedProperties(ep.setShared(map1));
+//                }
                 if (enddate.before(currentTime))
                 {
                     if (allday)
@@ -499,14 +512,21 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
             items = allEventsItems;
             for (Event event : items) {
                 Log.d("aaaaaaaaaaaaaaaaaaaaa", event.toString());
-                DateTime start = event.getStart().getDateTime();
+                event1 = mService.events().update("primary", event.getId(), event).execute();
+                if(event.size() == 17){
+                    map1.put("TYPE","not specified");
+                    Event.ExtendedProperties ep = new Event.ExtendedProperties();
+                    event.setExtendedProperties(ep.setShared(map1));
+                    event1 = mService.events().update("primary", event.getId(), event).execute();
+                }
+                DateTime start = event1.getStart().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
-                    start = event.getStart().getDate();
+                    start = event1.getStart().getDate();
                 }
                 eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                        String.format("%s (%s)", event1.getSummary(), start));
 
             }
             return eventStrings;
