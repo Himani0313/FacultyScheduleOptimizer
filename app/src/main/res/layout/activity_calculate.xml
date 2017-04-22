@@ -43,35 +43,58 @@
         android:layout_alignEnd="@+id/textView2" />
 
     <EditText
+        android:id="@+id/researchhour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Research Hours"
-        android:ems="10"
         android:layout_above="@+id/textView2"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/researchhour" />
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Enter Research Hours"
+        android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/teachinghour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Teaching Hours"
-        android:ems="10"
         android:layout_above="@+id/textView3"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/teachinghour" />
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Enter Teaching hours"
+        android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/servicehour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Service Hours"
-        android:ems="10"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/servicehour" />
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Enter Service Hours"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="DEI Service"
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/deiservicehours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter DEI Service Hours"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

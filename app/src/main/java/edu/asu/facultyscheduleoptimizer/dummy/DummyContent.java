@@ -41,6 +41,7 @@ public class DummyContent {
 //            addItem(createDummyItem(i));
 //        }
     }
+    public static Double rhour, thour,shour,dhour;
 
     public static void addItem(DummyItem item) {
         ITEMS.add(item);

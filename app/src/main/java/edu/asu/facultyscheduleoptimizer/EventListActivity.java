@@ -74,6 +74,10 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+    public double rhour = 0.0;
+    public double thour = 0.0;
+    public double shour = 0.0;
+    public double dhour = 0.0;
     private boolean mTwoPane;
     GoogleAccountCredential mCredential;
     private Button mCallApiButton;
@@ -513,18 +517,37 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
             for (Event event : items) {
                 Log.d("aaaaaaaaaaaaaaaaaaaaa", event.toString());
                 event1 = mService.events().update("primary", event.getId(), event).execute();
-                if(event.size() == 17){
+                if(event.size() < 18){
                     map1.put("TYPE","not specified");
                     Event.ExtendedProperties ep = new Event.ExtendedProperties();
                     event.setExtendedProperties(ep.setShared(map1));
                     event1 = mService.events().update("primary", event.getId(), event).execute();
                 }
+                Log.d("Listtt",event1.getExtendedProperties().getShared().get("TYPE"));
                 DateTime start = event1.getStart().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
                     start = event1.getStart().getDate();
                 }
+
+                if (event1.getExtendedProperties().getShared().get("TYPE").equals("Research")){
+                    rhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+                    System.out.print(rhour);
+                }
+                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Teaching")){
+                    thour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+                    System.out.print(rhour);
+                }
+                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Service") ){
+                    shour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+                    System.out.print(rhour);
+                }
+                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("DEI Service")){
+                    dhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+                    System.out.print(rhour);
+                }
+
                 eventStrings.add(
                         String.format("%s (%s)", event1.getSummary(), start));
 
