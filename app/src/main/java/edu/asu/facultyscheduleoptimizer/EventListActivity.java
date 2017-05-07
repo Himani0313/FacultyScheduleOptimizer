@@ -74,14 +74,12 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    public double rhour = 0.0;
-    public double thour = 0.0;
-    public double shour = 0.0;
-    public double dhour = 0.0;
+    public List<String> eventStrings = new ArrayList<String>();
+    public DateTime start, end;
     private boolean mTwoPane;
     GoogleAccountCredential mCredential;
     private Button mCallApiButton;
-
+    //public Button calculate = (Button)findViewById(R.id.calculate);
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -145,7 +143,11 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
         });
 
     }
-
+    public void calculateactivitycall (View view){
+        Intent intent = new Intent(EventListActivity.this,CalculateActivity.class);
+        intent.putStringArrayListExtra("eventStr", (ArrayList<String>) eventStrings);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -172,6 +174,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
         if (findViewById(R.id.event_detail_container) != null) {
             mTwoPane = true;
         }
+
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -453,7 +456,8 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
          * @throws IOException
          */
         private List<String> getDataFromApi() throws IOException, ParseException {
-            List<String> eventStrings = new ArrayList<String>();
+
+            eventStrings.clear();
             List<String>trial= new ArrayList<String>();
 
             java.util.Calendar cal = GregorianCalendar.getInstance(TimeZone.getDefault());
@@ -475,7 +479,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
             for (int i =0;i<allEventsItems.size();i++)
             {
                 Event curEvent = allEventsItems.get(i);
-                DateTime end = curEvent.getEnd().getDateTime();
+                end = curEvent.getEnd().getDateTime();
                 boolean allday=false;
                 if(end==null)
                 {
@@ -524,34 +528,41 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
                     event1 = mService.events().update("primary", event.getId(), event).execute();
                 }
                 Log.d("Listtt",event1.getExtendedProperties().getShared().get("TYPE"));
-                DateTime start = event1.getStart().getDateTime();
+                start = event1.getStart().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
                     start = event1.getStart().getDate();
                 }
-
-                if (event1.getExtendedProperties().getShared().get("TYPE").equals("Research")){
-                    rhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-                    System.out.print(rhour);
+                end = event1.getEnd().getDateTime();
+                if (end == null) {
+                    // All-day events don't have start times, so just use
+                    // the start date.
+                    end = event1.getEnd().getDate();
                 }
-                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Teaching")){
-                    thour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-                    System.out.print(rhour);
-                }
-                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Service") ){
-                    shour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-                    System.out.print(rhour);
-                }
-                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("DEI Service")){
-                    dhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-                    System.out.print(rhour);
-                }
+//                if (event1.getExtendedProperties().getShared().get("TYPE").equals("Research")){
+//                    rhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+//                    System.out.print(rhour);
+//                }
+//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Teaching")){
+//                    thour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+//                    System.out.print(rhour);
+//                }
+//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Service") ){
+//                    shour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+//                    System.out.print(rhour);
+//                }
+//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("DEI Service")){
+//                    dhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
+//                    System.out.print(rhour);
+//                }
 
                 eventStrings.add(
-                        String.format("%s (%s)", event1.getSummary(), start));
+                        String.format("%s (%s) (%s) %s", event1.getSummary(), start, end , event1.getExtendedProperties().getShared().get("TYPE")));
 
             }
+            Log.d("hhhhhhhhh", eventStrings.toString());
+            Log.d("ssssssss",eventStrings.get(2).substring(eventStrings.lastIndexOf(" ")+1));
             return eventStrings;
         }
 
