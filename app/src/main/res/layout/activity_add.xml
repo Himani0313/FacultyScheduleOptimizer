@@ -155,10 +155,9 @@
         <RadioButton
             android:text="Teaching"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/teaching"
             android:onClick="onRadioButtonClicked" />
 
@@ -166,10 +165,9 @@
             android:text="Service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/research"
             android:layout_marginTop="11dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/service"
             android:onClick="onRadioButtonClicked"/>
 
@@ -178,9 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="11dp"
+                android:layout_below="@+id/teaching"
+                android:layout_marginTop="5dp"
                 android:id="@+id/deiservice"
                 android:onClick="onRadioButtonClicked"/>
         </RadioGroup>

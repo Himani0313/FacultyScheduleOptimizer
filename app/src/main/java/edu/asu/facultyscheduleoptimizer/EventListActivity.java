@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import edu.asu.facultyscheduleoptimizer.dummy.sample;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import edu.asu.facultyscheduleoptimizer.dummy.DummyContent;
@@ -75,6 +79,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
      * device.
      */
     public List<String> eventStrings = new ArrayList<String>();
+    public List<sample> eventArray = new ArrayList<sample>();
     public DateTime start, end;
     private boolean mTwoPane;
     GoogleAccountCredential mCredential;
@@ -145,7 +150,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
     }
     public void calculateactivitycall (View view){
         Intent intent = new Intent(EventListActivity.this,CalculateActivity.class);
-        intent.putStringArrayListExtra("eventStr", (ArrayList<String>) eventStrings);
+        intent.putExtra("eventStr", (Serializable) eventArray);
         startActivity(intent);
     }
     @Override
@@ -458,6 +463,7 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
         private List<String> getDataFromApi() throws IOException, ParseException {
 
             eventStrings.clear();
+            eventArray.clear();
             List<String>trial= new ArrayList<String>();
 
             java.util.Calendar cal = GregorianCalendar.getInstance(TimeZone.getDefault());
@@ -556,13 +562,19 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
 //                    dhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
 //                    System.out.print(rhour);
 //                }
-
+                //sample s1 = new sample();
+                //s1.sample1(event1.getSummary(),start,end,event1.getExtendedProperties().getShared().get("TYPE"));
+                //Log.d("xxxxxxxxxx",s1.nameEvent);
+                //System.out.print(s1.nameEvent);
+               // Log.d("abbbbbbb",s1.toString());
+                eventArray.add(new sample(event1.getSummary(),start,end,event1.getExtendedProperties().getShared().get("TYPE")));
                 eventStrings.add(
-                        String.format("%s (%s) (%s) %s", event1.getSummary(), start, end , event1.getExtendedProperties().getShared().get("TYPE")));
+                        String.format("%s (%s)", event1.getSummary(), start));
 
             }
             Log.d("hhhhhhhhh", eventStrings.toString());
             Log.d("ssssssss",eventStrings.get(2).substring(eventStrings.lastIndexOf(" ")+1));
+            Log.d("LAssssstt tryy",eventArray.toString());
             return eventStrings;
         }
 
