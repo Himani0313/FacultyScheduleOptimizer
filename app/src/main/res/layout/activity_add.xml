@@ -175,7 +175,7 @@
                 android:text="DEI Service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="11dp"
                 android:layout_below="@+id/teaching"
                 android:layout_marginTop="5dp"
                 android:id="@+id/deiservice"

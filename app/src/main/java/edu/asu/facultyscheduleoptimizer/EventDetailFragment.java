@@ -5,9 +5,11 @@ import android.content.pm.ActivityInfo;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.asu.facultyscheduleoptimizer.dummy.DummyContent;
+
+import static edu.asu.facultyscheduleoptimizer.R.id.spinner;
 
 /**
  * A fragment representing a single Event detail screen.
@@ -84,16 +88,28 @@ public class EventDetailFragment extends Fragment {
             place.setText(mItem.getPlace());
             spinner.setVisibility(View.VISIBLE);
             type.setVisibility(View.VISIBLE);
-            ArrayAdapter<String> myadapter = new ArrayAdapter<String>(this, typeofevents, android.R.layout.simple_spinner_item);
+            ArrayAdapter<String> myadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,typeofevents);
+            myadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(myadapter);
+            type.setText(mItem.Type);
             if(mItem.Type.equals("not specified") ){
                type.setVisibility(View.GONE);
-                type.setText(mItem.Type);
             }
             else{
                 spinner.setVisibility(View.GONE);
-                type.setText(mItem.Type);
             }
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mItem.Type = parent.getItemAtPosition(position).toString();
+                    Log.d("vvvvvvvvvvvvvv",parent.getItemAtPosition(position).toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
 
 
         }
