@@ -8,7 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import edu.asu.facultyscheduleoptimizer.dummy.DummyContent;
 
@@ -60,7 +66,8 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_event_detail_fragment, container, false);
-
+        //String[] typeofevents = {"Research","Teaching","Service","DEI Service"};
+        List<String> typeofevents = new ArrayList<>(Arrays.asList("Research","Teaching","Service","DEI Service"));
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             TextView title = (TextView) rootView.findViewById(R.id.TitleDetails);
@@ -69,13 +76,26 @@ public class EventDetailFragment extends Fragment {
             TextView enddate = (TextView) rootView.findViewById(R.id.EndDateDetails);
             TextView place = (TextView) rootView.findViewById(R.id.PlaceDetails);
             TextView type = (TextView) rootView.findViewById(R.id.TYPE);
+            Spinner spinner = (Spinner)rootView.findViewById(R.id.spinner);
             title.setText(mItem.getTitle());
             description.setText(mItem.getDescription());
             startdate.setText(mItem.getStartDate());
             enddate.setText(mItem.getEndDate());
             place.setText(mItem.getPlace());
-            if(mItem.Type != null)
+            spinner.setVisibility(View.VISIBLE);
+            type.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> myadapter = new ArrayAdapter<String>(this, typeofevents, android.R.layout.simple_spinner_item);
+            if(mItem.Type.equals("not specified") ){
+               type.setVisibility(View.GONE);
                 type.setText(mItem.Type);
+            }
+            else{
+                spinner.setVisibility(View.GONE);
+                type.setText(mItem.Type);
+            }
+
+
+
         }
 
         return rootView;

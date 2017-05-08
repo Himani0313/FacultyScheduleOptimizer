@@ -51,7 +51,11 @@
         android:layout_alignParentRight="true"
         android:ems="10"
         android:hint="Enter Research Hours"
-        android:inputType="textPersonName" />
+        android:inputType="none"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <EditText
         android:id="@+id/teachinghour"
@@ -62,7 +66,11 @@
         android:layout_alignParentRight="true"
         android:ems="10"
         android:hint="Enter Teaching hours"
-        android:inputType="textPersonName" />
+        android:inputType="none"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <EditText
         android:id="@+id/servicehour"
@@ -73,7 +81,11 @@
         android:layout_alignParentRight="true"
         android:ems="10"
         android:hint="Enter Service Hours"
-        android:inputType="textPersonName" />
+        android:inputType="none"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -92,9 +104,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="none"
         android:hint="Enter DEI Service Hours"
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 </RelativeLayout>

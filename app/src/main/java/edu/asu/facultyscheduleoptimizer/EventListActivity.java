@@ -546,35 +546,12 @@ public class EventListActivity extends AppCompatActivity implements EasyPermissi
                     // the start date.
                     end = event1.getEnd().getDate();
                 }
-//                if (event1.getExtendedProperties().getShared().get("TYPE").equals("Research")){
-//                    rhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-//                    System.out.print(rhour);
-//                }
-//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Teaching")){
-//                    thour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-//                    System.out.print(rhour);
-//                }
-//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("Service") ){
-//                    shour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-//                    System.out.print(rhour);
-//                }
-//                else if (event1.getExtendedProperties().getShared().get("TYPE").equals("DEI Service")){
-//                    dhour += (event1.getStart().getDateTime().getValue() - event1.getEnd().getDateTime().getValue());
-//                    System.out.print(rhour);
-//                }
-                //sample s1 = new sample();
-                //s1.sample1(event1.getSummary(),start,end,event1.getExtendedProperties().getShared().get("TYPE"));
-                //Log.d("xxxxxxxxxx",s1.nameEvent);
-                //System.out.print(s1.nameEvent);
-               // Log.d("abbbbbbb",s1.toString());
+
                 eventArray.add(new sample(event1.getSummary(),start,end,event1.getExtendedProperties().getShared().get("TYPE")));
                 eventStrings.add(
                         String.format("%s (%s)", event1.getSummary(), start));
 
             }
-            Log.d("hhhhhhhhh", eventStrings.toString());
-            Log.d("ssssssss",eventStrings.get(2).substring(eventStrings.lastIndexOf(" ")+1));
-            Log.d("LAssssstt tryy",eventArray.toString());
             return eventStrings;
         }
 
