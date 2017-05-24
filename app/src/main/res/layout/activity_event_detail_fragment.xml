@@ -92,4 +92,16 @@
             android:layout_marginLeft="10dp"
             android:text="Type"/>
     </TableRow>
+    <TableRow
+        android:minHeight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/savebutton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SAVE"
+            />
+    </TableRow>
 </TableLayout>

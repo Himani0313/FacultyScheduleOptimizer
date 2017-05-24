@@ -31,10 +31,13 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -45,10 +48,10 @@ import pub.devrel.easypermissions.EasyPermissions;
  * item details are presented side-by-side with a list of items
  * in a {@link EventListActivity}.
  */
-public class EventDetailActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks,trial{
+public class EventDetailActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
 
     String mException;
-
+    Map<String, String> map1 = new HashMap<String, String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -128,9 +131,50 @@ public class EventDetailActivity extends AppCompatActivity implements EasyPermis
         }
         return super.onOptionsItemSelected(item);
     }
+    public void UpdateEvent(final String typeOfEvent){
+        Log.d("From save button",typeOfEvent);
+        ProgressDialog progressDialog = new ProgressDialog(EventDetailActivity.this);
 
+        progressDialog.show();
+        new Thread(new Runnable() {
+            public void run() {
+                Intent intent = getIntent();
+                Bundle bundle = intent.getExtras();
+                String eventId = bundle.getString("EventID");
+                String name = bundle.getString("NAME");
+                String itemid = bundle.getString("itemID");
+                mCredential = GoogleAccountCredential.usingOAuth2(
+                        getApplicationContext(), Arrays.asList(SCOPES))
+                        .setBackOff(new ExponentialBackOff());
+                mCredential.setSelectedAccountName(name);
+                final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+                final JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+                Calendar service = new Calendar.Builder(transport, jsonFactory, mCredential)
+                        .setApplicationName("FacultyScheduleOptimizer")
+                        .build();
+                // Update an event
+                try {
+                    map1.put("TYPE",typeOfEvent);
+                    Event.ExtendedProperties ep = new Event.ExtendedProperties();
+                    Event event = service.events().get("primary", eventId).execute();
+                    event.setExtendedProperties(ep.setShared(map1));
+                    event = service.events().update("primary", event.getId(),event).execute();
+                    Log.d("hollaa", String.valueOf(event.getUpdated()));
+                    ShowToast("Event Updated Successfully");
+
+                } catch (UserRecoverableAuthIOException e) {
+                    startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
+                } catch (IOException e) {
+                    ShowToastError(e);
+                }
+            }
+        }).start();
+
+        progressDialog.hide();
+
+    }
     private void Remove() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(EventDetailActivity.this);
 
         progressDialog.show();
         new Thread(new Runnable() {
@@ -154,7 +198,7 @@ public class EventDetailActivity extends AppCompatActivity implements EasyPermis
                 try {
                     service.events().delete("primary", eventId).execute();
                     DummyContent.ITEMS.remove(itemid);
-                    ShowToast();
+                    ShowToast("Event removed");
 
                 } catch (UserRecoverableAuthIOException e) {
                     startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
@@ -167,11 +211,11 @@ public class EventDetailActivity extends AppCompatActivity implements EasyPermis
         progressDialog.hide();
 
     }
-    private void ShowToast()
+    private void ShowToast(final String s)
     {
         runOnUiThread(new Runnable() {
             public void run() {
-                Toast toast = Toast.makeText(getBaseContext(), "Event removed", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getBaseContext(), s , Toast.LENGTH_LONG);
                 toast.show();
             }
         });
@@ -277,8 +321,5 @@ public class EventDetailActivity extends AppCompatActivity implements EasyPermis
     }
 
 
-    @Override
-    public void dosomethingwithdata(String xyz) {
-        Log.d("from interface",xyz);
-    }
+
 }

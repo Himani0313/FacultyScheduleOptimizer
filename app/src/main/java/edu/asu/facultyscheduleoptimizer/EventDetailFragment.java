@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public class EventDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
-    private trial triallistener;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -65,7 +66,6 @@ public class EventDetailFragment extends Fragment {
                 appBarLayout.setTitle(mItem.getTitle());
             }
             Context context = getContext();
-            triallistener = (trial) context;
         }
     }
 
@@ -84,6 +84,7 @@ public class EventDetailFragment extends Fragment {
             TextView place = (TextView) rootView.findViewById(R.id.PlaceDetails);
             TextView type = (TextView) rootView.findViewById(R.id.TYPE);
             Spinner spinner = (Spinner)rootView.findViewById(R.id.spinner);
+            Button savebutton = (Button) rootView.findViewById(R.id.savebutton);
             title.setText(mItem.getTitle());
             description.setText(mItem.getDescription());
             startdate.setText(mItem.getStartDate());
@@ -91,6 +92,7 @@ public class EventDetailFragment extends Fragment {
             place.setText(mItem.getPlace());
             spinner.setVisibility(View.VISIBLE);
             type.setVisibility(View.VISIBLE);
+            savebutton.setVisibility(View.VISIBLE);
             ArrayAdapter<String> myadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,typeofevents);
             myadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(myadapter);
@@ -100,12 +102,13 @@ public class EventDetailFragment extends Fragment {
             }
             else{
                 spinner.setVisibility(View.GONE);
+                savebutton.setVisibility(View.GONE);
             }
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d("hhhhhhhhhhhhhhhhh", mItem.Type);
+
                     mItem.Type = parent.getItemAtPosition(position).toString();
                     Log.d("vvvvvvvvvvvvvv",parent.getItemAtPosition(position).toString());
                     Log.d("xxxxxxxxxxxxxxxxxxxxxx", mItem.Type);
@@ -115,7 +118,12 @@ public class EventDetailFragment extends Fragment {
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-            triallistener.dosomethingwithdata(mItem.Type);
+            savebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((EventDetailActivity)getActivity()).UpdateEvent(mItem.Type);
+                }
+            });
 
         }
 
