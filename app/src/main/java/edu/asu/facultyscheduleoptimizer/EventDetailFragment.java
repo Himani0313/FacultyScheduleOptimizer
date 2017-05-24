@@ -1,6 +1,7 @@
 package edu.asu.facultyscheduleoptimizer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class EventDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
-
+    private trial triallistener;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -50,7 +51,7 @@ public class EventDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("in eventdetail fragment","fragment");
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
@@ -63,6 +64,8 @@ public class EventDetailFragment extends Fragment {
 
                 appBarLayout.setTitle(mItem.getTitle());
             }
+            Context context = getContext();
+            triallistener = (trial) context;
         }
     }
 
@@ -71,7 +74,7 @@ public class EventDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_event_detail_fragment, container, false);
         //String[] typeofevents = {"Research","Teaching","Service","DEI Service"};
-        List<String> typeofevents = new ArrayList<>(Arrays.asList("Research","Teaching","Service","DEI Service"));
+        List<String> typeofevents = new ArrayList<>(Arrays.asList("not specified","Research","Teaching","Service","DEI Service"));
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             TextView title = (TextView) rootView.findViewById(R.id.TitleDetails);
@@ -102,15 +105,17 @@ public class EventDetailFragment extends Fragment {
 
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("hhhhhhhhhhhhhhhhh", mItem.Type);
                     mItem.Type = parent.getItemAtPosition(position).toString();
                     Log.d("vvvvvvvvvvvvvv",parent.getItemAtPosition(position).toString());
+                    Log.d("xxxxxxxxxxxxxxxxxxxxxx", mItem.Type);
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-
+            triallistener.dosomethingwithdata(mItem.Type);
 
         }
 

@@ -45,18 +45,19 @@ import pub.devrel.easypermissions.EasyPermissions;
  * item details are presented side-by-side with a list of items
  * in a {@link EventListActivity}.
  */
-public class EventDetailActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class EventDetailActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks,trial{
 
     String mException;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
+        Log.d("in eventdetail activity","activity");
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage("Remove event?");
@@ -276,4 +277,8 @@ public class EventDetailActivity extends AppCompatActivity implements EasyPermis
     }
 
 
+    @Override
+    public void dosomethingwithdata(String xyz) {
+        Log.d("from interface",xyz);
+    }
 }
